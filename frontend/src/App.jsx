@@ -8,19 +8,23 @@ import Register from "./pages/Register";
 export default function App() {
   return (
     <div className="bg-white min-h-screen">
-      {/* Navbar displayed across all pages */}
+      {/* Navbar stays fixed at the top */}
       <Navbar />
 
-      <Routes>
-        {/* Homepage */}
-        <Route path="/" element={<LandingPage />} />
+      {/* Add padding-top here to prevent content from 
+          hiding behind the fixed navbar. 
+          pt-24 accounts for the enlarged logo/navbar height.
+      */}
+      <main className="pt-24 lg:pt-28">
+        <Routes>
+          {/* Homepage */}
+          <Route path="/" element={<LandingPage />} />
 
-        {/* Auth Pages */}
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-
-        {/* Extra pages can be added here later */}
-      </Routes>
+          {/* Auth Pages */}
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+        </Routes>
+      </main>
     </div>
   );
 }

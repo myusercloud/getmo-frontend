@@ -1,7 +1,7 @@
 import React from "react";
 // Import icons from a library like lucide-react (highly recommended for healthcare UIs)
 import { Phone, CheckCircle, Clock, Heart, Activity, ShieldCheck } from "lucide-react";
-import heroImage1 from "../assets/hero1.jpg";
+import heroImage1 from "../assets/hero3.jpg";
 
 export default function LandingPage() {
   return (
