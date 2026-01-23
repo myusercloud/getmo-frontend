@@ -1,26 +1,58 @@
-import { Link } from "react-router-dom";
+import React from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 
-export default function Sidebar() {
+/**
+ * Sidebar component for the Admin Dashboard.
+ * Note: This component MUST be rendered within a <BrowserRouter> or <Router> 
+ * context for useNavigate and Link to function correctly.
+ */
+const Sidebar = () => {
+  const navigate = useNavigate();
+  
   return (
-    <div className="w-64 h-screen bg-base-200 p-4 fixed">
-      <h1 className="text-2xl font-bold mb-6">GetMo Admin</h1>
-
-      <ul className="menu">
-        <li><Link to="/dashboard">Dashboard</Link></li>
-        <li><Link to="/equipment">Equipment</Link></li>
-        <li><Link to="/equipment/add">Add Equipment</Link></li>
-        <li><Link to="/users">Users</Link></li>
-        <li><Link to="/users/add">Add User</Link></li>
-        <li><button
-            onClick={() => {
-              localStorage.removeItem("token");
-              window.location.href = "/login";
-            }}
-            className="text-red-500"
+    <aside className="w-72 bg-slate-900 text-white flex flex-col fixed h-full shadow-2xl z-40">
+      <div className="p-8">
+        <h2 className="text-xl font-black text-blue-400">ADMIN CONSOLE</h2>
+        <p className="text-[10px] uppercase tracking-widest text-slate-500 mt-1">Management Portal</p>
+      </div>
+      
+      <nav className="flex-grow px-4 space-y-1">
+        <Link 
+          to="/dashboard" 
+          className="flex items-center gap-4 p-4 hover:bg-slate-800 rounded-xl transition-all group"
         >
-          Logout
-        </button></li>
-      </ul>
-    </div>
+          <span className="text-lg group-hover:scale-110">📊</span> 
+          <span className="font-medium">Dashboard</span>
+        </Link>
+        
+        <Link 
+          to="/equipment" 
+          className="flex items-center gap-4 p-4 hover:bg-slate-800 rounded-xl transition-all group"
+        >
+          <span className="text-lg group-hover:scale-110">🦽</span> 
+          <span className="font-medium">Equipment</span>
+        </Link>
+        
+        <Link 
+          to="/users" 
+          className="flex items-center gap-4 p-4 hover:bg-slate-800 rounded-xl transition-all group"
+        >
+          <span className="text-lg group-hover:scale-110">👥</span> 
+          <span className="font-medium">Staff Directory</span>
+        </Link>
+      </nav>
+
+      <div className="p-8 border-t border-slate-800">
+        <button 
+          onClick={() => navigate('/')} 
+          className="flex items-center gap-3 text-slate-400 hover:text-white transition-colors w-full text-left"
+        >
+          <span>←</span> 
+          <span className="font-medium">Exit to Website</span>
+        </button>
+      </div>
+    </aside>
   );
-}
+};
+
+export default Sidebar;
