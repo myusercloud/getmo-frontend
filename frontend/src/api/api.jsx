@@ -1,10 +1,10 @@
 import axios from "axios";
 
 const API = axios.create({
-  baseURL: "https://getmo-homehealth.onrender.com/api",
+  baseURL: "https://getmo-homehealth.onrender.com",
 });
 
-// Attach token automatically on every request
+// Attach token on every request
 API.interceptors.request.use((req) => {
   const token = localStorage.getItem("token");
   if (token) {

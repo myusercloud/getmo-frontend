@@ -1,28 +1,36 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 
 import Navbar from "./components/Navbar";
 import LandingPage from "./pages/LandingPage";
-import Login from "./pages/Login";
+import Login2 from "./pages/Login2";
 import Register from "./pages/Register";
+import AdminDashboard from "./pages/admin/AdminDashboard";
+import AdminRoute from "./components/AdminRoute";
 
 export default function App() {
   return (
     <div className="bg-white min-h-screen">
-      {/* Navbar stays fixed at the top */}
       <Navbar />
 
-      {/* Add padding-top here to prevent content from 
-          hiding behind the fixed navbar. 
-          pt-24 accounts for the enlarged logo/navbar height.
-      */}
       <main className="pt-24 lg:pt-28">
         <Routes>
-          {/* Homepage */}
           <Route path="/" element={<LandingPage />} />
-
-          {/* Auth Pages */}
-          <Route path="/login" element={<Login />} />
+          <Route path="/login2" element={<Login2 />} />
           <Route path="/register" element={<Register />} />
+
+          <Route
+            path="/admin"
+            element={
+              <AdminRoute>
+                <AdminDashboard />
+              </AdminRoute>
+            }
+          />
+
+          <Route path="/unauthorized" element={<div>Not allowed</div>} />
+
+          {/* CATCH ALL */}
+          <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </main>
     </div>
