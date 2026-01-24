@@ -4,6 +4,7 @@ import StatsStrip from "../components/StatsStrip";
 import Equipments from "../components/Equipments";
 import Services from "../components/Services";
 import Footer from "../components/Footer";
+import About from "../components/About";
 
 export default function LandingPage() {
   return (
@@ -12,6 +13,7 @@ export default function LandingPage() {
       <StatsStrip />
       <Equipments />
       <Services />
+      <About />
       <Footer />
     </div>
   );

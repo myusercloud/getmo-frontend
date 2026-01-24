@@ -61,7 +61,7 @@ export default function Navbar() {
           <div className="h-8 w-px bg-slate-200" />
 
           <Link 
-            to="/login2"
+            to="/admin/login"
             className="flex items-center gap-2 text-sm font-bold text-slate-700 hover:text-blue-700 transition-all px-4 py-2 rounded-full hover:bg-slate-50"
           >
             <User size={18} className="text-blue-600" />

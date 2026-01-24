@@ -2,53 +2,44 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import API from "../api/api";
 
-export default function Login2() {
+export default function AdminLogin() {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
-  const handleLogin = async (e) => {
+  const submit = async (e) => {
     e.preventDefault();
     setError("");
 
-    console.log("Sending request to:", API.defaults.baseURL + "/auth/login");
-
     try {
       const res = await API.post("/auth/login", { email, password });
-      console.log("SERVER RESPONSE:", res.data);
-
-      const token = res.data.token;
-      const payload = JSON.parse(atob(token.split(".")[1]));
-      const role = payload.role;
-
-      localStorage.setItem("token", token);
-
-      if (role === "admin") navigate("/admin");
-      else navigate("/");
+      localStorage.setItem("token", res.data.token);
+      navigate("/admin");
     } catch (err) {
-      console.log("AXIOS ERROR:", err);
-      setError("Login failed");
+      setError("Invalid credentials");
     }
   };
 
   return (
-    <div className="p-10">
-      <h1>Login</h1>
+    <div className="p-10 max-w-md mx-auto">
+      <h1 className="text-2xl font-bold mb-4">Admin Login</h1>
 
-      {error && <p>{error}</p>}
+      {error && <p className="text-red-500">{error}</p>}
 
-      <form onSubmit={handleLogin}>
+      <form onSubmit={submit} className="space-y-4">
         <input
-          placeholder="Email"
+          placeholder="Admin Email"
+          className="w-full border p-3"
           onChange={(e) => setEmail(e.target.value)}
         />
         <input
           placeholder="Password"
+          className="w-full border p-3"
           type="password"
           onChange={(e) => setPassword(e.target.value)}
         />
-        <button>Login</button>
+        <button className="bg-blue-600 text-white p-3 w-full">Login</button>
       </form>
     </div>
   );
