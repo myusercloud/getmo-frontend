@@ -1,23 +1,20 @@
 import { useEffect, useState } from "react";
 
 export default function useAuth() {
-  const [user, setUser] = useState(null);
+  const token = localStorage.getItem("token");
 
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (!token) return;
+  // If no token: return null immediately
+  if (!token) return null;
 
-    try {
-      const payload = JSON.parse(atob(token.split(".")[1]));
-      setUser({
-        id: payload.id,
-        role: payload.role,
-      });
-    } catch (err) {
-      console.error("Invalid token:", err);
-      localStorage.removeItem("token");
-    }
-  }, []);
-
-  return user;
+  try {
+    const payload = JSON.parse(atob(token.split(".")[1]));
+    return {
+      id: payload.id,
+      role: payload.role
+    };
+  } catch (error) {
+    console.error("Invalid token:", error);
+    localStorage.removeItem("token");
+    return null;
+  }
 }
