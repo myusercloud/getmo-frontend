@@ -5,6 +5,7 @@ import AdminLayout from "./AdminLayout";
 
 export default function EquipmentCreate() {
   const navigate = useNavigate();
+
   const [form, setForm] = useState({
     name: "",
     description: "",
@@ -13,10 +14,28 @@ export default function EquipmentCreate() {
     image_url: "",
   });
 
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setForm((prev) => ({
+      ...prev,
+      [name]:
+        name === "price"
+          ? parseFloat(value)
+          : name === "stock"
+          ? parseInt(value)
+          : value,
+    }));
+  };
+
   const submit = async (e) => {
     e.preventDefault();
-    await API.post("/equipment", form);
-    navigate("/admin/equipment");
+    try {
+      await API.post("/equipment", form); // token auto-attached by interceptor
+      navigate("/admin/equipment");
+    } catch (err) {
+      console.error("Create error:", err.response?.data || err);
+      alert("Failed to save equipment");
+    }
   };
 
   return (
@@ -24,12 +43,16 @@ export default function EquipmentCreate() {
       <h1 className="text-2xl font-bold mb-6">Add Equipment</h1>
 
       <form onSubmit={submit} className="space-y-4 max-w-lg">
-        {Object.keys(form).map((key) => (
+
+        {["name", "description", "price", "stock", "image_url"].map((field) => (
           <input
-            key={key}
+            key={field}
+            name={field}
+            type={field === "price" || field === "stock" ? "number" : "text"}
             className="w-full border p-3 rounded-lg"
-            placeholder={key}
-            onChange={(e) => setForm({ ...form, [key]: e.target.value })}
+            placeholder={field}
+            value={form[field]}
+            onChange={handleChange}
           />
         ))}
 
