@@ -1,44 +1,99 @@
 import React from "react";
-import { Phone, Clock } from "lucide-react";
-
+import { Clock, ShieldCheck, HeartPulse, UserCheck } from "lucide-react";
 import heroImage1 from "../assets/hero3.jpg";
 
 export default function Hero() {
   return (
-          <section className="relative bg-white overflow-hidden">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center">
-          <div className="md:w-1/2 p-8 lg:p-16">
-            <span className="inline-block px-3 py-1 rounded-full bg-blue-100 text-blue-700 text-xs font-bold uppercase tracking-wider mb-4">
-              Compassionate Care at Home
-            </span>
-            <h1 className="text-4xl lg:text-6xl font-extrabold text-slate-900 leading-[1.1] mb-6">
-              Expert Healthcare <br /> 
-              <span className="text-blue-600">In Your Own Home.</span>
-            </h1>
-            <p className="text-lg text-slate-600 leading-relaxed mb-8 max-w-lg">
-              A healthcare partner committed to caring for you or your loved ones 
-              with professional expertise and heartfelt compassion.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4">
-              <a href="tel:0723015506" className="bg-blue-600 text-white text-center px-8 py-4 rounded-xl font-bold shadow-lg shadow-blue-200 hover:bg-blue-700 transition-all">
-                Book a Consultation
-              </a>
-              <div className="flex items-center gap-3 px-4 py-2 border border-slate-200 rounded-xl bg-slate-50">
-                <div className="w-10 h-10 bg-green-100 text-green-600 rounded-full flex items-center justify-center">
-                  <Clock size={20} />
-                </div>
-                <div className="text-sm">
-                  <p className="font-bold">24/7 Support</p>
-                  <p className="text-slate-500 text-xs">Always here for you</p>
-                </div>
+    <section className="relative bg-white pt-16 pb-24 overflow-hidden">
+
+      {/* DESKTOP BACKGROUND MASKED IMAGE */}
+      <div 
+        className="hidden md:block absolute inset-0 right-0 w-full h-full"
+        style={{
+          backgroundImage: `url(${heroImage1})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center right",
+          maskImage: "linear-gradient(to left, black 30%, transparent 100%)",
+          WebkitMaskImage: "linear-gradient(to left, black 30%, transparent 100%)",
+        }}
+      />
+
+      {/* MOBILE FULL BACKGROUND WITH LIGHT OVERLAY */}
+      <div 
+        className="md:hidden absolute inset-0 w-full h-full"
+        style={{
+          backgroundImage: `url(${heroImage1})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
+      >
+        <div className="absolute inset-0 bg-white/70 backdrop-blur-sm" />
+      </div>
+
+      {/* CONTENT */}
+      <div className="relative max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-10 items-center">
+
+        {/* LEFT SIDE TEXT */}
+        <div className="z-10">
+
+          {/* Tag */}
+          <span className="inline-block px-3 py-1 rounded-full bg-blue-100 text-blue-700 text-xs font-bold uppercase tracking-widest mb-6">
+            Accredited Homecare Provider
+          </span>
+
+          {/* Heading */}
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-slate-900 leading-tight mb-6">
+            Clinical Excellence <br />
+            <span className="text-blue-600 italic font-medium">At Your Doorstep.</span>
+          </h1>
+
+          {/* Description */}
+          <p className="text-lg text-slate-700 max-w-md mb-10">
+            Compassionate and professional home-based medical care — 
+            available 24/7 to support recovery, chronic management, 
+            and post-hospital transitions.
+          </p>
+
+          {/* ACTION BUTTONS */}
+          <div className="flex flex-col sm:flex-row gap-5 mb-12">
+            <a
+              href={`https://wa.me/254723015506?text=Hello, I would like to book a medical homecare consultation.`}
+              className="bg-blue-600 text-white px-10 py-4 rounded-xl font-bold shadow-lg hover:bg-blue-700 transition-all text-center"
+            >
+              Book a Consultation
+            </a>
+
+            {/* 24/7 Support Bubble */}
+            <div className="flex items-center gap-3 px-4 py-3 border border-slate-200 bg-white/90 rounded-xl shadow-sm">
+              <div className="w-10 h-10 bg-green-100 text-green-600 rounded-full flex items-center justify-center">
+                <Clock size={20} />
+              </div>
+              <div className="text-sm leading-tight">
+                <p className="font-bold">Available 24/7</p>
+                <p className="text-slate-500 text-xs">Always here for you</p>
               </div>
             </div>
           </div>
-          <div className="md:w-1/2 relative h-[400px] md:h-[600px] w-full">
-            <img src={heroImage1} className="w-full h-full object-cover" alt="Home care nurse providing assistance" />
-            <div className="absolute inset-0 bg-gradient-to-r from-white via-transparent to-transparent hidden md:block" />
+
+          {/* TRUST ICONS */}
+          <div className="grid grid-cols-3 gap-4 max-w-sm">
+            <TrustCard icon={<ShieldCheck size={26} className="text-blue-600 mx-auto" />} label="Certified" />
+            <TrustCard icon={<HeartPulse size={26} className="text-red-500 mx-auto" />} label="Compassion" />
+            <TrustCard icon={<UserCheck size={26} className="text-green-600 mx-auto" />} label="Expert Care" />
           </div>
+
         </div>
-      </section>
+
+      </div>
+    </section>
+  );
+}
+
+function TrustCard({ icon, label }) {
+  return (
+    <div className="p-4 rounded-xl bg-white/90 border border-slate-200 hover:shadow transition text-center">
+      {icon}
+      <p className="text-xs font-bold text-slate-600 mt-2">{label}</p>
+    </div>
   );
 }

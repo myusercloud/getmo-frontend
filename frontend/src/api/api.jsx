@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const API = axios.create({
-  baseURL: "https://getmo-homehealth.onrender.com",
+  baseURL: "http://localhost:5000/api",
 });
 
 // Attach token on every request
