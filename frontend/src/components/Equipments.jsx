@@ -13,7 +13,7 @@ export default function Equipments() {
   const [selectedItem, setSelectedItem] = useState(null); // NEW
 
   useEffect(() => {
-    fetch("http://localhost:5000/api/equipment")
+    fetch("https://getmo-homehealth.onrender.com/api/equipment")
       .then((res) => res.json())
       .then((data) => {
         setItems(data);
