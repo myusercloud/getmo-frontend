@@ -5,6 +5,8 @@ import Equipments from "../components/Equipments";
 import Services from "../components/Services";
 import Footer from "../components/Footer";
 import About from "../components/About";
+import { Contact } from "lucide-react";
+import ContactPage from "../components/ContactPage";
 
 export default function LandingPage() {
   return (
@@ -14,7 +16,7 @@ export default function LandingPage() {
       <Equipments />
       <Services />
       <About />
-      <Footer />
+      <ContactPage />
     </div>
   );
 }

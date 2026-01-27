@@ -1,25 +1,33 @@
 import { Routes, Route, Navigate, useLocation } from "react-router-dom";
 import { useEffect } from "react";
+import { wakeServer } from "./api/api";
 
 import Navbar from "./components/Navbar";
 import LandingPage from "./pages/LandingPage";
+import AboutPage from "./pages/AboutPage";
+import ContactPage from "./components/ContactPage"; // ✅ NEW
 import AdminLogin from "./pages/AdminLogin";
 import AdminRoute from "./components/AdminRoute";
+import Footer from "./components/Footer";
 
 // Admin pages
 import AdminDashboard from "./pages/admin/AdminDashboard";
 import EquipmentList from "./pages/admin/EquipmentList";
 import EquipmentCreate from "./pages/admin/EquipmentCreate";
 import EquipmentEdit from "./pages/admin/EquipmentEdit";
-import AdminUsers from "./pages/admin/AdminUsers"; // new
+import AdminUsers from "./pages/admin/AdminUsers";
+import ServicesPage from "./pages/ServicesPage";
 
 export default function App() {
   const location = useLocation();
 
   useEffect(() => {
+    // Wake backend each time app loads / route changes
+    wakeServer();
+
     const token = localStorage.getItem("token");
 
-    // Auto logout if navigating OUTSIDE the admin section
+    // Auto logout if navigating outside admin pages
     if (token && !location.pathname.startsWith("/admin")) {
       localStorage.removeItem("token");
       localStorage.removeItem("user");
@@ -32,9 +40,12 @@ export default function App() {
 
       <main className="pt-24 lg:pt-28">
         <Routes>
-
+          
           {/* Public Website */}
           <Route path="/" element={<LandingPage />} />
+          <Route path="/about" element={<AboutPage />} />
+          <Route path="/contact" element={<ContactPage />} />
+          <Route path="/services" element={<ServicesPage />} />
 
           {/* Admin Login */}
           <Route path="/admin/login" element={<AdminLogin />} />
@@ -89,9 +100,10 @@ export default function App() {
 
           {/* Catch all */}
           <Route path="*" element={<Navigate to="/" />} />
-
         </Routes>
       </main>
+
+      <Footer />
     </div>
   );
 }

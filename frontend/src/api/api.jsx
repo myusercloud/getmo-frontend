@@ -13,4 +13,8 @@ API.interceptors.request.use((req) => {
   return req;
 });
 
+// 🔥 Ping function (wakes Render backend)
+export const wakeServer = () =>
+  fetch("https://getmo-homehealth.onrender.com/ping").catch(() => {});
+  
 export default API;

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
+import API, { wakeServer } from "../api/api";   // ⬅ USE API HERE
 import EquipmentCard from "./EquipmentCard";
-import EquipmentModal from "./EquipmentsModal"; // NEW IMPORT
+import EquipmentModal from "./EquipmentsModal";
 import { Search } from "lucide-react";
 
 export default function Equipments() {
@@ -10,20 +11,28 @@ export default function Equipments() {
   const [activeTab, setActiveTab] = useState("sale");
   const [search, setSearch] = useState("");
   const [error, setError] = useState("");
-  const [selectedItem, setSelectedItem] = useState(null); // NEW
+  const [selectedItem, setSelectedItem] = useState(null);
 
   useEffect(() => {
-    fetch("https://getmo-homehealth.onrender.com/api/equipment")
-      .then((res) => res.json())
-      .then((data) => {
+    async function loadData() {
+      setLoading(true);
+
+      // 🔥 Wake backend first
+      await wakeServer();
+
+      try {
+        const { data } = await API.get("/equipment");
         setItems(data);
         setFiltered(data);
-        setLoading(false);
-      })
-      .catch(() => {
-        setError("Failed to load equipment.");
-        setLoading(false);
-      });
+      } catch (err) {
+        setError("please wait for a moment.");
+      }
+
+      // Stop loading after fetch attempt
+      setLoading(false);
+    }
+
+    loadData();
   }, []);
 
   // SEARCH FILTER
@@ -65,45 +74,17 @@ export default function Equipments() {
           </div>
         </div>
 
-        {/* TABS */}
-        <div className="flex gap-4 mb-10">
-          <button
-            onClick={() => setActiveTab("sale")}
-            className={`px-5 py-2 rounded-lg text-sm font-bold transition ${
-              activeTab === "sale"
-                ? "bg-blue-600 text-white shadow-lg"
-                : "bg-slate-100 text-slate-600"
-            }`}
-          >
-            For Sale
-          </button>
-
-          <button
-            onClick={() => setActiveTab("lease")}
-            className={`px-5 py-2 rounded-lg text-sm font-bold transition ${
-              activeTab === "lease"
-                ? "bg-blue-600 text-white shadow-lg"
-                : "bg-slate-100 text-slate-600"
-            }`}
-          >
-            For Lease
-          </button>
-        </div>
-
-        {/* ERROR STATE */}
+        {/* ERROR */}
         {error && (
-          <div className="text-center text-red-500 py-6 font-medium">{error}</div>
+          <div className="text-center text-red-500 py-6 font-medium">
+            {error}
+          </div>
         )}
 
-        {/* LOADING SKELETON */}
+        {/* LOADING */}
         {loading && (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-            {[1, 2, 3, 4].map((n) => (
-              <div
-                key={n}
-                className="animate-pulse bg-slate-100 rounded-2xl h-80"
-              ></div>
-            ))}
+          <div className="text-center text-slate-500 font-medium py-10">
+            Warming up server…  
           </div>
         )}
 
@@ -114,20 +95,15 @@ export default function Equipments() {
               <EquipmentCard
                 key={item.id}
                 item={item}
-                onClick={() => setSelectedItem(item)} // OPEN MODAL
+                onClick={() => setSelectedItem(item)}
               />
             ))}
           </div>
         )}
 
-        {/* EMPTY STATE */}
+        {/* EMPTY */}
         {!loading && filtered.length === 0 && (
           <div className="text-center py-20 opacity-75">
-            <img
-              src="https://cdn-icons-png.flaticon.com/512/4076/4076505.png"
-              alt="Empty"
-              className="w-32 mx-auto mb-6 opacity-70"
-            />
             <p className="text-slate-500 text-lg font-medium">
               No equipment matches your search.
             </p>
