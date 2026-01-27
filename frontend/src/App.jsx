@@ -5,7 +5,7 @@ import { wakeServer } from "./api/api";
 import Navbar from "./components/Navbar";
 import LandingPage from "./pages/LandingPage";
 import AboutPage from "./pages/AboutPage";
-import ContactPage from "./components/ContactPage"; // ✅ NEW
+import ContactPage from "./components/ContactPage";
 import AdminLogin from "./pages/AdminLogin";
 import AdminRoute from "./components/AdminRoute";
 import Footer from "./components/Footer";
@@ -17,11 +17,14 @@ import EquipmentCreate from "./pages/admin/EquipmentCreate";
 import EquipmentEdit from "./pages/admin/EquipmentEdit";
 import AdminUsers from "./pages/admin/AdminUsers";
 import ServicesPage from "./pages/ServicesPage";
+import useAnalytics from "./hooks/useAnalytics";
 
 export default function App() {
   const location = useLocation();
 
   useEffect(() => {
+
+    useAnalytics();
     // Wake backend each time app loads / route changes
     wakeServer();
 

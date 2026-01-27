@@ -15,13 +15,26 @@ export default function ContactPage() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    alert("Message sent! (Integrate backend API here)");
+
+    const subject = encodeURIComponent("New Homecare Inquiry");
+    const body = encodeURIComponent(
+      `Hello Getmo Homecare Team,\n\n` +
+      `You have received a new inquiry:\n\n` +
+      `Name: ${form.name}\n` +
+      `Phone: ${form.phone}\n` +
+      `Email: ${form.email}\n\n` +
+      `Message:\n${form.message}\n\n` +
+      `Sent from the website contact form.`
+    );
+
+    // Open user email app with prefilled content
+    window.location.href = `mailto:info@getmohomecareservices.co.ke?subject=${subject}&body=${body}`;
   };
 
   return (
     <section className="pt-28 pb-24 bg-white">
       <div className="max-w-7xl mx-auto px-6">
-        
+
         {/* PAGE HEADER */}
         <div className="text-center mb-16">
           <h1 className="text-4xl font-black text-slate-900">Contact Us</h1>
@@ -32,12 +45,11 @@ export default function ContactPage() {
         </div>
 
         <div className="grid md:grid-cols-2 gap-16">
-
+          
           {/* LEFT SIDE — CONTACT DETAILS */}
           <div className="space-y-10">
-            
             <div>
-              <h2 classsame="text-2xl font-bold text-slate-900 mb-4">Get in Touch</h2>
+              <h2 className="text-2xl font-bold text-slate-900 mb-4">Get in Touch</h2>
               <p className="text-slate-500 max-w-md">
                 Talk to our support team for inquiries, care requests, or emergency assistance.
               </p>
@@ -64,20 +76,6 @@ export default function ContactPage() {
                 <p className="text-slate-600">info@getmohomecareservices.co.ke</p>
               </div>
             </div>
-
-            {/* Address */}
-            <div className="flex items-start gap-4">
-              <div className="p-4 bg-blue-50 text-blue-600 rounded-xl">
-                <MapPin size={24} />
-              </div>
-              <div>
-                <h3 className="font-bold text-slate-900">Location</h3>
-                <p className="text-slate-600">
-                  Mombasa Road Vision Plaza, 2nd Floor Suite 25  
-                  Nairobi, Kenya
-                </p>
-              </div>
-            </div>
           </div>
 
           {/* RIGHT SIDE — CONTACT FORM */}
@@ -87,6 +85,7 @@ export default function ContactPage() {
 
               <form onSubmit={handleSubmit} className="space-y-5">
 
+                {/* Name */}
                 <div>
                   <label className="block text-sm font-medium text-slate-700">Full Name</label>
                   <input
@@ -100,6 +99,7 @@ export default function ContactPage() {
                   />
                 </div>
 
+                {/* Phone */}
                 <div>
                   <label className="block text-sm font-medium text-slate-700">Phone Number</label>
                   <input
@@ -113,6 +113,7 @@ export default function ContactPage() {
                   />
                 </div>
 
+                {/* Email */}
                 <div>
                   <label className="block text-sm font-medium text-slate-700">Email Address</label>
                   <input
@@ -126,6 +127,7 @@ export default function ContactPage() {
                   />
                 </div>
 
+                {/* Message */}
                 <div>
                   <label className="block text-sm font-medium text-slate-700">Message</label>
                   <textarea
@@ -139,6 +141,7 @@ export default function ContactPage() {
                   ></textarea>
                 </div>
 
+                {/* SUBMIT */}
                 <button
                   type="submit"
                   className="w-full py-4 bg-blue-600 text-white rounded-xl font-bold flex items-center justify-center gap-2 hover:bg-blue-700 transition-all"
@@ -150,6 +153,7 @@ export default function ContactPage() {
               </form>
             </div>
           </div>
+
         </div>
       </div>
     </section>
