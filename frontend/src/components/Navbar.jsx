@@ -1,7 +1,8 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Menu, X, Phone, ArrowRight } from "lucide-react";
 import logo from "../assets/getmo1.png";
+
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -48,7 +49,7 @@ export default function Navbar() {
           <div className="leading-relaxed hidden sm:block">
             <h1 className="text-4xl font-extrabold text-blue-600 tracking-tight">
               GETMO
-              <span className="text-black font-medium tracking-wide"> HOMECARE</span>
+              <span className="text-black font-normal tracking-wide">HOMECARE</span>
             </h1>
           </div>
         </Link>

@@ -17,14 +17,12 @@ import EquipmentCreate from "./pages/admin/EquipmentCreate";
 import EquipmentEdit from "./pages/admin/EquipmentEdit";
 import AdminUsers from "./pages/admin/AdminUsers";
 import ServicesPage from "./pages/ServicesPage";
-import useAnalytics from "./hooks/useAnalytics";
 
 export default function App() {
   const location = useLocation();
 
   useEffect(() => {
 
-    useAnalytics();
     // Wake backend each time app loads / route changes
     wakeServer();
 
@@ -43,7 +41,7 @@ export default function App() {
 
       <main className="pt-24 lg:pt-28">
         <Routes>
-          
+
           {/* Public Website */}
           <Route path="/" element={<LandingPage />} />
           <Route path="/about" element={<AboutPage />} />
