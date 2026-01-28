@@ -9,13 +9,14 @@ export default function EquipmentEdit() {
 
   const [item, setItem] = useState(null);
   const [error, setError] = useState("");
+  const [files, setFiles] = useState([]);
 
   // ---------- LOAD EQUIPMENT ----------
   useEffect(() => {
     API.get(`/equipment/${id}`).then((res) => {
-      const { slug, specifications, categoryId, ...cleanData } = res.data; 
-      // Remove slug/spec/category from state completely
+      const { slug, specifications, categoryId, images, ...cleanData } = res.data;
 
+      // Remove slug, category, spec, and images
       setItem(cleanData);
     });
   }, [id]);
@@ -35,6 +36,22 @@ export default function EquipmentEdit() {
     }));
   };
 
+  // ---------- DRAG AND DROP ----------
+  const handleDrop = (e) => {
+    e.preventDefault();
+    const droppedFiles = Array.from(e.dataTransfer.files);
+    setFiles((prev) => [...prev, ...droppedFiles]);
+  };
+
+  const handleDragOver = (e) => {
+    e.preventDefault();
+  };
+
+  const handleFileSelect = (e) => {
+    const selected = Array.from(e.target.files);
+    setFiles((prev) => [...prev, ...selected]);
+  };
+
   // ---------- SUBMIT ----------
   const submit = async (e) => {
     e.preventDefault();
@@ -50,6 +67,10 @@ export default function EquipmentEdit() {
 
     try {
       await API.put(`/equipment/${id}`, payload);
+
+      // NOTE: Upload images separately here if needed
+      // You can use FormData and POST to /equipment/:id/images
+
       navigate("/admin/equipment");
     } catch (err) {
       console.error("Update error:", err.response?.data || err);
@@ -134,18 +155,40 @@ export default function EquipmentEdit() {
           </select>
         </div>
 
-        {/* EXISTING IMAGES */}
+        {/* DRAG & DROP UPLOAD */}
         <div>
-          <label className="font-semibold">Existing Images</label>
-          <div className="flex gap-3 flex-wrap mt-1">
-            {item.images?.map((img) => (
-              <img
-                key={img.id}
-                src={img.url}
-                className="w-24 h-24 rounded border object-cover shadow-sm"
-              />
-            ))}
+          <label className="font-semibold">Upload New Images</label>
+
+          <div
+            onDrop={handleDrop}
+            onDragOver={handleDragOver}
+            className="mt-2 p-6 border-2 border-dashed rounded-lg text-center cursor-pointer"
+          >
+            <p className="text-gray-500">Drag & drop images here</p>
+            <p className="text-gray-400 text-sm">or click to choose</p>
+
+            <input
+              type="file"
+              accept="image/*"
+              multiple
+              onChange={handleFileSelect}
+              className="opacity-0 absolute inset-0 cursor-pointer"
+              style={{ position: "relative", top: "-40px", width: "100%", height: "100%" }}
+            />
           </div>
+
+          {/* Preview Selected Images */}
+          {files.length > 0 && (
+            <div className="flex gap-3 flex-wrap mt-3">
+              {files.map((file, idx) => (
+                <img
+                  key={idx}
+                  src={URL.createObjectURL(file)}
+                  className="w-24 h-24 object-cover rounded border shadow-sm"
+                />
+              ))}
+            </div>
+          )}
         </div>
 
         {/* SUBMIT BUTTON */}
