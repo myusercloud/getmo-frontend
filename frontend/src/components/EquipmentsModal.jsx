@@ -4,7 +4,7 @@ import { useState } from "react";
 export default function EquipmentModal({ item, onClose }) {
   if (!item) return null;
 
-  const phone = "254797752627";
+  const phone = "254723015506";
   const message = encodeURIComponent(`Hello, I'm interested in the ${item.name}`);
 
   // Images

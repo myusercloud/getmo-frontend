@@ -3,7 +3,6 @@ import { Link, useLocation } from "react-router-dom";
 import { Menu, X, Phone, ArrowRight } from "lucide-react";
 import logo from "../assets/getmo1.png";
 
-
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -23,9 +22,8 @@ export default function Navbar() {
     { name: "Contact", path: "/contact" },
   ];
 
-  // Helper: check active link (for highlighting)
   const isActive = (link) => {
-    if (link.anchor) return false; // anchors won't match location.pathname
+    if (link.anchor) return false;
     return location.pathname === link.path;
   };
 
@@ -46,10 +44,10 @@ export default function Navbar() {
             alt="Getmo Homecare Logo"
             className="h-12 w-auto object-contain"
           />
-          <div className="leading-relaxed hidden sm:block">
-            <h1 className="text-4xl font-extrabold text-blue-600 tracking-tight">
-              GETMO
-              <span className="text-black font-normal tracking-wide">HOMECARE</span>
+
+          <div className="leading-relaxed">
+            <h1 className="text-2xl sm:text-4xl font-extrabold text-blue-600 tracking-tight">
+              GETMO <span className="text-black font-normal tracking-wide">HOMECARE</span>
             </h1>
           </div>
         </Link>
@@ -71,7 +69,6 @@ export default function Navbar() {
               >
                 {link.name}
 
-                {/* ACTIVE INDICATOR */}
                 <span
                   className={`absolute -bottom-1 left-0 h-0.5 bg-blue-600 transition-all duration-300 
                     ${isActive(link) ? "w-full" : "w-0 group-hover:w-full"}
@@ -105,7 +102,6 @@ export default function Navbar() {
         </button>
       </div>
 
-      {/* MOBILE MENU DROPDOWN */}
       {isOpen && (
         <div className="absolute top-full left-0 w-full bg-white border-b border-slate-200 p-8 flex flex-col space-y-6 lg:hidden shadow-2xl animate-in fade-in slide-in-from-top-5">
           
@@ -128,7 +124,6 @@ export default function Navbar() {
             </a>
           ))}
 
-          {/* Emergency Call */}
           <a
             href="tel:0723015506"
             className="flex items-center justify-center gap-3 bg-blue-600 text-white py-5 rounded-2xl text-lg font-black shadow-xl shadow-blue-200"
