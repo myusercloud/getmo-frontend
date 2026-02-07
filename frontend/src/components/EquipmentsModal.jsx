@@ -1,4 +1,4 @@
-import { X, Phone, MessageCircle } from "lucide-react";
+import { X, Phone, MessageCircle, ArrowLeft } from "lucide-react";
 import { useState } from "react";
 
 export default function EquipmentModal({ item, onClose }) {
@@ -20,42 +20,46 @@ export default function EquipmentModal({ item, onClose }) {
   const specs = item.specifications || {};
 
   return (
-    <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex justify-center items-center p-4">
-      <div className="bg-white w-full max-w-lg rounded-2xl shadow-xl overflow-hidden animate-fadeIn">
+    <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[9999] flex justify-center items-center p-2 sm:p-4">
+      <div className="bg-white w-full max-w-lg rounded-2xl shadow-xl overflow-hidden animate-fadeIn relative">
 
-        {/* HEADER */}
-        <div className="flex justify-between items-center p-4 border-b border-slate-200">
-          <h2 className="text-xl font-bold text-slate-900">{item.name}</h2>
+        {/* BACK BUTTON (LEFT) + CLOSE BUTTON (RIGHT) */}
+        <div className="flex justify-between items-center p-4 border-b border-slate-200 bg-white sticky top-0 z-10">
+          <button 
+            onClick={onClose}
+            className="flex items-center gap-2 text-slate-600 hover:text-slate-800"
+          >
+            <ArrowLeft size={22} />
+            <span className="font-medium">Back</span>
+          </button>
+
           <button onClick={onClose}>
             <X size={26} className="text-slate-500 hover:text-slate-700" />
           </button>
         </div>
 
-        {/* IMAGE */}
-        <div className="w-full h-64 bg-slate-100 overflow-hidden flex items-center justify-center">
+        {/* IMAGE (FULLY RESPONSIVE) */}
+        <div className="w-full h-[250px] sm:h-[300px] bg-slate-100 flex items-center justify-center overflow-hidden">
           {activeImage ? (
             <img
               src={activeImage}
               alt={item.name}
-              className="object-cover w-full h-full"
+              className="object-contain w-full h-full"
             />
           ) : (
             <p className="text-slate-400">No image available</p>
           )}
         </div>
 
-        {/* THUMBNAILS */}
+        {/* THUMBNAILS — MOBILE RESPONSIVE SCROLL */}
         {images.length > 1 && (
-          <div className="flex gap-2 p-4 overflow-x-auto border-b border-slate-200">
+          <div className="flex gap-3 p-4 overflow-x-auto border-b border-slate-200 scrollbar-thin scrollbar-thumb-slate-300">
             {images.map((img, i) => (
               <button
                 key={i}
                 onClick={() => setActiveImage(img.url)}
-                className={`w-16 h-16 rounded-md overflow-hidden border 
-                ${
-                  activeImage === img.url
-                    ? "border-blue-500"
-                    : "border-slate-200"
+                className={`min-w-[70px] min-h-[70px] rounded-md overflow-hidden border ${
+                  activeImage === img.url ? "border-blue-500" : "border-slate-200"
                 }`}
               >
                 <img
@@ -82,7 +86,7 @@ export default function EquipmentModal({ item, onClose }) {
           </p>
 
           {/* Type & Status */}
-          <div className="flex items-center gap-3 text-sm text-slate-600">
+          <div className="flex flex-wrap items-center gap-3 text-sm text-slate-600">
             <span className="font-semibold">Type:</span>
             <span className="px-2 py-1 bg-blue-100 text-blue-700 rounded">
               {item.type}
@@ -105,11 +109,12 @@ export default function EquipmentModal({ item, onClose }) {
           {/* Category */}
           {item.category && (
             <p className="text-sm text-slate-500">
-              <span className="font-semibold">Category:</span> {item.category.name}
+              <span className="font-semibold">Category:</span>{" "}
+              {item.category.name}
             </p>
           )}
 
-          {/* Specifications (JSON → list) */}
+          {/* Specifications */}
           {Object.keys(specs).length > 0 && (
             <div>
               <h4 className="font-semibold text-slate-700 mb-2">Specifications</h4>
@@ -121,7 +126,6 @@ export default function EquipmentModal({ item, onClose }) {
             </div>
           )}
 
-          {/* Created At */}
           <p className="text-xs text-slate-400">
             Added on {new Date(item.created_at).toLocaleDateString()}
           </p>

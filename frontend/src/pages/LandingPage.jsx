@@ -13,8 +13,9 @@ export default function LandingPage() {
     <div className="min-h-screen bg-white font-sans text-slate-900">
       <Hero />
       <StatsStrip />
-      <Equipments />
+      
       <Services />
+      <Equipments />
       <About />
       <ContactPage />
     </div>

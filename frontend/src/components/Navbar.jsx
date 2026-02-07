@@ -47,7 +47,7 @@ export default function Navbar() {
 
           <div className="leading-relaxed">
             <h1 className="text-2xl sm:text-4xl font-extrabold text-blue-600 tracking-tight">
-              GETMO <span className="text-black font-normal tracking-wide">HOMECARE</span>
+              GETMO <span className="text-black font-normal tracking-wide">HOMECARE SERVICES</span>
             </h1>
           </div>
         </Link>
