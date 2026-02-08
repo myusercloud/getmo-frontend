@@ -58,13 +58,13 @@ export default function Services() {
       icon: <Stethoscope />,
       title: "24/7 Professional Nursing",
       color: "bg-blue-50 text-blue-600",
-      items: ["Critical nursing care", "General nursing care", "Pediatric / Neonatal intensive care"]
+      items: ["Critical nursing care", "General nursing care", "Pediatric / Neonatal intensive care",  "Medication management", "Post-operative care"]
     },
     {
       icon: <ClipboardList />,
       title: "Equipment Sale & Lease",
       color: "bg-emerald-50 text-emerald-600",
-      items: ["Portable oxygen concentrators", "Electric oxygen concentrators", "Wheelchairs", "Ventilator machines"]
+      items: ["Portable oxygen concentrators", "Hospital beds", "Suction machine", "Oxygen cylinders", "Patient monitors", "Electric oxygen concentrators", "Wheelchairs", "Ventilator machines"]
     },
     {
       icon: <Heart />,
@@ -94,7 +94,7 @@ export default function Services() {
       icon: <Users />,
       title: "Aging & Elderly Support",
       color: "bg-teal-50 text-teal-600",
-      items: ["Personal care assistance", "Daily living support", "Home management support"]
+      items: ["Personal care assistance", "Daily living support", "Home management support", "Caregiver/Nurse aid support"]
     },
     {
       icon: <Truck />,
