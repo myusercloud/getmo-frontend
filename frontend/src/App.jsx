@@ -1,6 +1,8 @@
+// App.jsx
 import { Routes, Route, Navigate, useLocation } from "react-router-dom";
 import { useEffect } from "react";
 import { wakeServer } from "./api/api";
+import ReactGA from "react-ga4";
 
 import Navbar from "./components/Navbar";
 import LandingPage from "./pages/LandingPage";
@@ -10,7 +12,6 @@ import AdminLogin from "./pages/AdminLogin";
 import AdminRoute from "./components/AdminRoute";
 import Footer from "./components/Footer";
 
-// Admin pages
 import AdminDashboard from "./pages/admin/AdminDashboard";
 import EquipmentList from "./pages/admin/EquipmentList";
 import EquipmentCreate from "./pages/admin/EquipmentCreate";
@@ -18,21 +19,29 @@ import EquipmentEdit from "./pages/admin/EquipmentEdit";
 import AdminUsers from "./pages/admin/AdminUsers";
 import ServicesPage from "./pages/ServicesPage";
 
+// Initialize GA once
+ReactGA.initialize("G-45XV3JBC9");
+
 export default function App() {
   const location = useLocation();
 
   useEffect(() => {
-
-    // Wake backend each time app loads / route changes
+    // Wake backend each time the app loads or route changes
     wakeServer();
 
+    // Auto logout if token exists but user is outside admin pages
     const token = localStorage.getItem("token");
-
-    // Auto logout if navigating outside admin pages
     if (token && !location.pathname.startsWith("/admin")) {
       localStorage.removeItem("token");
       localStorage.removeItem("user");
     }
+
+    // Send GA page view event on every route change
+    ReactGA.send({
+      hitType: "pageview",
+      page: location.pathname,
+    });
+
   }, [location]);
 
   return (
@@ -41,7 +50,6 @@ export default function App() {
 
       <main className="pt-24 lg:pt-28">
         <Routes>
-
           {/* Public Website */}
           <Route path="/" element={<LandingPage />} />
           <Route path="/about" element={<AboutPage />} />
@@ -71,7 +79,7 @@ export default function App() {
             }
           />
 
-          {/* Equipment Routes */}
+          {/* Equipment */}
           <Route
             path="/admin/equipment"
             element={
