@@ -2,12 +2,97 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+
+    <!-- Mobile Friendly -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- =======================================
+         GOOGLE ANALYTICS (GA4)
+    ======================================== -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-45XV3JBC9"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-45XV3JBC9');
+    </script>
+
+    <!-- =======================================
+         PRIMARY SEO META TAGS
+    ======================================== -->
+    <title>Getmo Homecare Services | Home-Based Healthcare in Kenya</title>
+    <meta
+      name="description"
+      content="Professional home-based healthcare services across Kenya. Nursing care, equipment hire, physiotherapy, lab tests, and 24/7 medical support delivered with compassion and clinical excellence."
+    />
+    <meta
+      name="keywords"
+      content="homecare kenya, home nursing, medical equipment hire kenya, physiotherapy nairobi, home healthcare services, caregiver services kenya, elderly care kenya, chronic care support"
+    />
+    <meta name="author" content="Getmo Homecare Services" />
+    <meta name="robots" content="index, follow" />
+
+    <!-- =======================================
+         OPEN GRAPH TAGS (SOCIAL SHARE PREVIEW)
+    ======================================== -->
+    <meta property="og:title" content="Getmo Homecare Services Kenya" />
+    <meta
+      property="og:description"
+      content="Reliable homecare services in Kenya — nursing care, physiotherapy, medical equipment hire, chronic care support, and lab services at home."
+    />
+    <meta
+      property="og:image"
+      content="https://getmohomecare.com/getmo1.png"
+    />
+    <meta property="og:url" content="https://getmohomecare.com" />
+    <meta property="og:type" content="website" />
+
+    <!-- =======================================
+         LOCAL BUSINESS SCHEMA (SEO)
+    ======================================== -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "LocalBusiness",
+      "name": "Getmo Homecare Services",
+      "image": "https://getmohomecare.com/getmo1.png",
+      "@id": "https://getmohomecare.com",
+      "url": "https://getmohomecare.com",
+      "telephone": "+254723015506",
+      "priceRange": "$$",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Nairobi",
+        "addressRegion": "Nairobi County",
+        "addressCountry": "KE"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": -1.2921,
+        "longitude": 36.8219
+      },
+      "description": "Professional home-based healthcare services across Kenya. Nursing care, physiotherapy, equipment hire, lab services, and 24/7 medical support.",
+      "areaServed": {
+        "@type": "Country",
+        "name": "Kenya"
+      },
+      "sameAs": [
+        "https://www.facebook.com",
+        "https://www.instagram.com",
+        "https://www.linkedin.com"
+      ]
+    }
+    </script>
+
+    <!-- Favicon -->
     <link rel="icon" type="image/png" href="/getmo1.png" />
-    <title>Getmo Homecare</title>
+
   </head>
+
   <body>
     <div id="root"></div>
+
+    <!-- React Entry File -->
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>
