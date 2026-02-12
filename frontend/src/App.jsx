@@ -18,6 +18,7 @@ import EquipmentCreate from "./pages/admin/EquipmentCreate";
 import EquipmentEdit from "./pages/admin/EquipmentEdit";
 import AdminUsers from "./pages/admin/AdminUsers";
 import ServicesPage from "./pages/ServicesPage";
+import Equipments from "./components/Equipments";
 
 // Initialize GA once
 ReactGA.initialize("G-45XV3JBC9");
@@ -55,6 +56,7 @@ export default function App() {
           <Route path="/about" element={<AboutPage />} />
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/services" element={<ServicesPage />} />
+          <Route path="/equipment" element={<Equipments />} />
 
           {/* Admin Login */}
           <Route path="/admin/login" element={<AdminLogin />} />
